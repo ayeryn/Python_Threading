@@ -53,10 +53,12 @@ for i in range(3):
 
 
 def worker():
+  """ prints the thread's name, sleeps, and then reprints the thread's name """
   print threading.currentThread().getName()
   time.sleep(2)
   print threading.currentThread().getName()
-  
+ 
+""" creating 3 threads, each with a distinct name """
 t1 = threading.Thread(name="thread1", target=worker)
 t2 = threading.Thread(name="thread2", target=worker)
 t3 = threading.Thread(name="thread3", target=worker)
@@ -75,4 +77,5 @@ t3.start()
 
     but then the ending order of the threads is not consistent because there is
     no synchronization
+
 """
