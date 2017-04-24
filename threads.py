@@ -75,4 +75,5 @@ t3.start()
 
     but then the ending order of the threads is not consistent because there is
     no synchronization
+
 """
