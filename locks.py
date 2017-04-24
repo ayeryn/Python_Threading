@@ -14,18 +14,19 @@ def try_lock_acquire(lock):
 		time.sleep(0.5)
 		logging.debug('Trying to acquire')
 
-		""" a tread calling .acquire() will hold the lock if the lock currently has no other treads holding it"""
-		""" The floating-point argument will cause the thread to block for at most the number of seconds specified by timeout
-		and as long as the lock cannot be acquired. """
-		""" Returns true if the lock has been acquired, false if the timeout has elapsed."""
+		""".acqire() returns false if the timeout passed in has elapsed."""
 		have_it = lock.acquire(0)
 		try:
 			if have_it:
+				""" only one thread will acquire the lock each iteration """
 				logging.debug('Iteration %d: Acquired',  i+1)
 			else:
+				""" the thread that calles .acquire() but does not have the lock blocks"""
 				logging.debug('Iteration %d: Not acquired', i+1)
 		finally:
 			if have_it:
+				""" .release() resets the state of the lock to unlocked """
+				""" one of the threads proceeds to acquire the lock """
 				lock.release()
 				logging.debug('Iteration %d: Lock released', i+1)
 				logging.debug('Thread %s done after %d iterations', threading.currentThread().getName(), i+1)
@@ -47,10 +48,12 @@ thread2.start()
 # (thread1  ) Iteration 1: Acquired
 # (thread2  ) Iteration 1: Not acquired
 # (thread1  ) Iteration 1: Lock released
-# (thread1  ) Done after 1 iterations
+# (thread1  ) Thread thread1 done after 1 iterations
 # (thread2  ) Trying to acquire
-# (thread1  ) Trying to acquire
 # (thread2  ) Iteration 2: Acquired
-# (thread1  ) Iteration 2: Not acquired
+# (thread1  ) Trying to acquire
 # (thread2  ) Iteration 2: Lock released
-# (thread2  ) Done after 2 iterations
+# (thread1  ) Iteration 2: Acquired
+# (thread2  ) Thread thread2 done after 2 iterations
+# (thread1  ) Iteration 2: Lock released
+# (thread1  ) Thread thread1 done after 2 iterations
