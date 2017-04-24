@@ -1,5 +1,3 @@
-
-
 import threading
 import time
 
@@ -12,8 +10,10 @@ for i in range(3):
 
   """ create a new thread that will execute the code in the hello function """
   t = threading.Thread(target=hello)
+
   threads.append(t)
-  // tell the thread to execute 
+
+  """ tell the thread to execute """
   t.start()
   
 """ 
@@ -25,14 +25,21 @@ for i in range(3):
   
 """
 
+
+
+def hello(index):
+    print "hello " + str(index)
+
 threads = []
 
 for i in range(3):
 
   """ create a new thread that will execute the code in the hello function and print out the index """
-  t = threading.Thread(target=hello, args=(i,)
+  t = threading.Thread(target=hello, args=(i,))
+
   threads.append(t)
-  // tell the thread to execute 
+
+  """ tell the thread to execute """
   t.start()
   
 """ 
@@ -45,11 +52,10 @@ for i in range(3):
 """
 
 
-
 def worker():
   print threading.currentThread().getName()
   time.sleep(2)
-  print thread.currentThread().name()
+  print threading.currentThread().getName()
   
 t1 = threading.Thread(name="thread1", target=worker)
 t2 = threading.Thread(name="thread2", target=worker)
@@ -58,3 +64,7 @@ t3 = threading.Thread(name="thread3", target=worker)
 t1.start()
 t2.start()
 t3.start()
+
+""" 
+    Output varies on the order of threads1-3 bc they are not synchronized
+"""
