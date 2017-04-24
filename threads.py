@@ -66,5 +66,13 @@ t2.start()
 t3.start()
 
 """ 
-    Output varies on the order of threads1-3 bc they are not synchronized
+    Output varies
+    It always starts with:
+
+    thread1
+    thread2
+    thread3
+
+    but then the ending order of the threads is not consistent because there is
+    no synchronization
 """
